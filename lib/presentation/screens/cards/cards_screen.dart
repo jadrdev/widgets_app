@@ -25,9 +25,7 @@ class CardsScreen extends StatelessWidget {
 }
 
 class _CardView extends StatelessWidget {
-  const _CardView({
-    super.key,
-  });
+  const _CardView();
 
   @override
   Widget build(BuildContext context) {
