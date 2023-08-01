@@ -24,29 +24,34 @@ const appMenuItems = <MenuItems>[
       subtitle: 'Un contenedor estilizado',
       link: '/cards',
       icon: Icons.credit_card),
-      MenuItems(
+  MenuItems(
       title: 'ProgressIndicator',
       subtitle: 'Generales y controlados',
       link: '/progress',
       icon: Icons.refresh_rounded),
-      MenuItems(
+  MenuItems(
       title: 'Snackbars y dialogs',
       subtitle: 'Indicadores en pantalla',
       link: '/snackbars',
       icon: Icons.info_outline_rounded),
-       MenuItems(
+  MenuItems(
       title: 'Animated Container',
       subtitle: 'Stateful widget animado',
       link: '/animated',
       icon: Icons.check_box_outline_blank_rounded),
-       MenuItems(
+  MenuItems(
       title: 'UI Controls',
       subtitle: 'Controles de usuario',
       link: '/ui-controls',
       icon: Icons.car_rental_outlined),
-       MenuItems(
+  MenuItems(
       title: 'Tutorial',
       subtitle: 'Tutorial de la app',
       link: '/tutorial',
       icon: Icons.school_rounded),
+  MenuItems(
+      title: 'Scroll infinito',
+      subtitle: 'Scroll infinito',
+      link: '/infinite',
+      icon: Icons.insert_drive_file_outlined),
 ];
