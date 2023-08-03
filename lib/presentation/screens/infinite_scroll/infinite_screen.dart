@@ -40,22 +40,45 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
   }
 
   Future loadNextPage() async {
-    
     if (isLoading) return;
     isLoading = true;
-    setState(() {
-      
-    });
+    setState(() {});
 
     await Future.delayed(const Duration(seconds: 2));
     addFiveImages();
     isLoading = false;
     if (!isMounted) return;
 
-    setState(() {
-      
-    });
+    setState(() {});
+
+    moveScrollToBottom(); 
   }
+
+  Future<void> onRefresh() async {
+    isLoading = true;
+    setState(() {});
+    
+    await Future.delayed(const Duration(seconds: 2));
+    if (!isMounted) return;
+    final lastID = imagesIds.last;
+    imagesIds.clear();
+    imagesIds.add(lastID + 1);
+    addFiveImages();
+    setState(() {});
+
+    
+  }
+
+
+  void moveScrollToBottom(){
+    if (scrollController.position.pixels + 100 <= scrollController.position.maxScrollExtent) return;
+
+    scrollController.animateTo(
+      scrollController.position.pixels + 120, 
+      duration: const Duration(milliseconds: 250), 
+      curve: Curves.fastOutSlowIn);
+      
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -65,27 +88,34 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
         context: context,
         removeTop: true,
         removeBottom: true,
-        child: ListView.builder(
-          itemCount: imagesIds.length,
-          controller: scrollController,
-          itemBuilder: (context, index) {
-            return FadeInImage(
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 300,
-                placeholder: const AssetImage('assets/images/jar-loading.gif'),
-                image: NetworkImage(
-                    'https://picsum.photos/id/${imagesIds[index]}/500/300'));
-          },
+        child: RefreshIndicator(
+          edgeOffset: 10,
+          strokeWidth: 2,
+          onRefresh: onRefresh,
+          child: ListView.builder(
+            itemCount: imagesIds.length,
+            controller: scrollController,
+            itemBuilder: (context, index) {
+              return FadeInImage(
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 300,
+                  placeholder:
+                      const AssetImage('assets/images/jar-loading.gif'),
+                  image: NetworkImage(
+                      'https://picsum.photos/id/${imagesIds[index]}/500/300'));
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => context.pop(), 
-          child: isLoading 
-          ? SpinPerfect(
-            infinite: true,
-            child: const Icon(Icons.refresh_rounded),) 
-          : FadeIn(child: const Icon(Icons.arrow_back_ios_new_rounded))),
+          onPressed: () => context.pop(),
+          child: isLoading
+              ? SpinPerfect(
+                  infinite: true,
+                  child: const Icon(Icons.refresh_rounded),
+                )
+              : FadeIn(child: const Icon(Icons.arrow_back_ios_new_rounded))),
     );
   }
 }
