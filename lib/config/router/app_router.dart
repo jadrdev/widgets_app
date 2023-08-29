@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:widgets_app/presentation/screens/counter/counter.dart';
 import '../../presentation/screens/screens.dart';
 
 // GoRouter configuration
@@ -19,6 +20,47 @@ final appRouter = GoRouter(
       path: '/cards',
       name: CardsScreen.name,
       builder: (context, state) => const CardsScreen(),
+    ),
+    GoRoute(
+      path: '/progress',
+      name: PogressScreen.name,
+      builder: (context, state) => const PogressScreen(),
+    ),
+    GoRoute(
+      path: '/snackbars',
+      name: SnackbarScreen.name,
+      builder: (context, state) => const SnackbarScreen(),
+    ),
+    GoRoute(
+      path: '/animated',
+      name: AnimatedScreen.name,
+      builder: (context, state) => const AnimatedScreen(),
+    ),
+    GoRoute(
+      path: '/ui-controls',
+      name: UIControlsScreen.name,
+      builder: (context, state) => const UIControlsScreen(),
+    ),
+    GoRoute(
+      path: '/tutorial',
+      name: AppTutorialScreen.name,
+      builder: (context, state) => const AppTutorialScreen(),
+    ),
+    GoRoute(
+      path: '/infinite',
+      name: InfiniteScrollScreen.name,
+      builder: (context, state) => const InfiniteScrollScreen(),
+    ),
+
+    GoRoute(
+      path: '/counter',
+      name: CounterPage.name,
+      builder: (context, state) => const CounterPage(),
+    ),
+    GoRoute(
+      path: '/theme-changer',
+      name: ThemeChangerScreen.name,
+      builder: (context, state) => const ThemeChangerScreen(),
     ),
   ],
 );
