@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:widgets_app/config/theme/app_theme.dart';
 import 'package:widgets_app/presentation/providers/theme_provider.dart';
 
 class ThemeChangerScreen extends ConsumerWidget {
@@ -8,14 +9,14 @@ class ThemeChangerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool isDarkMode = ref.watch(isDarkModeProvider);
+    final bool isDarkMode = ref.watch(themeNotifierProvider).isDarkMode;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Theme Changer'),
         actions: [
           IconButton(
               onPressed: () {
-                ref.read(isDarkModeProvider.notifier).state = !isDarkMode;
+                ref.read(themeNotifierProvider.notifier).toggleDarkMode();
               },
               icon: isDarkMode
                   ? const Icon(Icons.dark_mode_outlined)
@@ -33,7 +34,8 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final List<Color> colors = ref.watch(colorListProvider);
-    final int selectedColor = ref.watch(selectedColorProvider);
+    // final AppTheme appTheme = ref.watch(themeNotifierProvider);
+    final int selectedColor = ref.watch(themeNotifierProvider).selectedColor;
     
     return ListView.builder(
         itemCount: colors.length,
@@ -46,7 +48,8 @@ class _ThemeChangerView extends ConsumerWidget {
             value: index,
             groupValue: selectedColor,
             onChanged: (value) {
-              ref.read(selectedColorProvider.notifier).state = index;
+              // ref.read(selectedColorProvider.notifier).state = index;
+              ref.read(themeNotifierProvider.notifier).changeColorIndex(index);
             },
           );
         });
